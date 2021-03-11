@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">Finance</string>
+    <string name="action_finance">Finance</string>
+    <string name="action_income">Income</string>
+    <string name="action_spending">Spending</string>
+    <string name="financeTitle">Your Finances</string>
+    <string name="financeSubtitle">Please enter your income and spendings</string>
+    <string name="title">Name</string>
+    <string name="addButton">Add</string>
+    <string name="income">Income</string>
+    <string name="spending">Spending</string>
+    <string name="financename"></string>
+    <string name="amount">Amount</string>
+    <string name="totalIncome">Total Income</string>
+    <string name="totalIncomeSoFar">$ Total</string>
+    <string name="totalSpending">Total Spending</string>
+    <string name="totalSpendingSoFar">$ Total</string>
+    <string name="incomeTitle">Income</string>
+    <string name="spendingTitle">Spending</string>
+    <string name="defaultIncomeAmount">00</string>
+    <string name="defaultIncomeMethod">N/A</string>
+    <string name="enter_amount">Enter Amount</string>
+
+    <string name="title_activity_home">Home</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Finance</string>
+    <string name="nav_header_subtitle">See how much you save</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_finance">Finance</string>
+    <string name="menu_income">Income</string>
+    <string name="menu_spending">Spending</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>

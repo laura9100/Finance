@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#78ffa5</color>
+    <color name="colorPrimaryDark">#51bd75</color>
+    <color name="colorAccent">#3c8f58</color>
+    <color name="ic_launcher_homer_background">#0000</color>
+
+</resources>
