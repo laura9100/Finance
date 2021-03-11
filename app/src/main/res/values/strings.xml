@@ -9,17 +9,20 @@
     <string name="addButton">Add</string>
     <string name="income">Income</string>
     <string name="spending">Spending</string>
-    <string name="financename"></string>
+    <string name="financename">Name</string>
     <string name="amount">Amount</string>
     <string name="totalIncome">Total Income</string>
     <string name="totalIncomeSoFar">$ Total</string>
     <string name="totalSpending">Total Spending</string>
     <string name="totalSpendingSoFar">$ Total</string>
+    <string name="totalSaved">Total Amount Saved</string>
+    <string name="totalSavedSoFar">$ Total</string>
     <string name="incomeTitle">Income</string>
     <string name="spendingTitle">Spending</string>
     <string name="defaultIncomeAmount">00</string>
     <string name="defaultIncomeMethod">N/A</string>
     <string name="enter_amount">Enter Amount</string>
+    <string name="enter_name">Enter Name</string>
 
     <string name="title_activity_home">Home</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>

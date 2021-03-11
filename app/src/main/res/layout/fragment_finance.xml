@@ -8,7 +8,7 @@
     tools:context=".fragments.FinanceFragment">
 
     <TextView
-        android:id="@+id/donateTitle"
+        android:id="@+id/financeTitle"
         android:layout_width="188dp"
         android:layout_height="30dp"
         android:layout_alignParentStart="true"
@@ -28,11 +28,11 @@
         app:layout_constraintVertical_bias="0.077" />
 
     <TextView
-        android:id="@+id/donateSubtitle"
+        android:id="@+id/financeSubtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/donateTitle"
-        android:layout_alignEnd="@+id/donateTitle"
+        android:layout_below="@+id/financeTitle"
+        android:layout_alignEnd="@+id/financeTitle"
         android:layout_alignParentStart="true"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -61,16 +61,16 @@
         android:text="@string/addButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.485"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.676" />
+        app:layout_constraintVertical_bias="0.653" />
 
     <RadioGroup
         android:id="@+id/financeMethod"
         android:layout_width="181dp"
         android:layout_height="128dp"
-        android:layout_below="@+id/donateSubtitle"
+        android:layout_below="@+id/financeSubtitle"
         android:layout_alignParentStart="true"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -81,8 +81,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/donateTitle"
-        app:layout_constraintVertical_bias="0.589">
+        app:layout_constraintTop_toTopOf="@+id/financeTitle"
+        app:layout_constraintVertical_bias="0.56">
 
         <RadioButton
             android:id="@+id/Income"
@@ -105,7 +105,7 @@
         style="@android:style/Widget.Material.NumberPicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/donateSubtitle"
+        android:layout_alignEnd="@+id/financeSubtitle"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -116,23 +116,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.428" />
-
-    <TextView
-        android:id="@+id/amount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/amount"
-        android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.383" />
 
     <TextView
         android:id="@+id/totalIncome"
@@ -183,7 +166,7 @@
         app:layout_constraintHorizontal_bias="0.039"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.431" />
+        app:layout_constraintVertical_bias="0.402" />
 
     <EditText
         android:id="@+id/financeName"
@@ -191,7 +174,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:autofillHints="Name"
+        android:hint="@string/enter_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.039"
@@ -226,10 +210,10 @@
         app:layout_constraintVertical_bias="0.845" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/totalSaved"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="@string/totalSaved"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -239,10 +223,10 @@
         app:layout_constraintVertical_bias="0.9" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/totalSavedSoFar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="@string/totalSavedSoFar"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
