@@ -55,6 +55,30 @@ class FinanceJSONStore : FinanceStore, AnkoLogger {
         return financeList
     }
 
+    override fun findTotalIncome() : Int {
+        var total: Int
+        total = 0
+        for(finance in finances){
+            if(finance.financemethod.equals("Income"))
+                total += finance.amount
+        }
+        return total
+    }
+    override fun findTotalSpending() : Int {
+        var total: Int
+        total = 0
+        for(finance in finances){
+            if(finance.financemethod.equals("Spending"))
+                total += finance.amount
+        }
+        return total
+    }
+    override fun totalSaved() : Int {
+        var total: Int
+        total = findTotalIncome() - findTotalSpending()
+        return total
+    }
+
     override fun findById(id:Long) : FinanceModel? {
         val foundFinance: FinanceModel? = finances.find { it.id == id }
         return foundFinance

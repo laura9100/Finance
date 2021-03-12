@@ -17,6 +17,29 @@ class FinanceMemStore : FinanceStore {
         override fun findAll(): List<FinanceModel> {
             return finances
         }
+    override fun findTotalIncome() : Int {
+        var total: Int
+        total = 0
+        for(finance in finances){
+            if(finance.financemethod.equals("Income"))
+                total += finance.amount
+        }
+        return total
+    }
+    override fun findTotalSpending() : Int {
+        var total: Int
+        total = 0
+        for(finance in finances){
+            if(finance.financemethod.equals("Spending"))
+                total += finance.amount
+        }
+        return total
+    }
+    override fun totalSaved() : Int {
+        var total: Int
+        total = findTotalIncome() - findTotalSpending()
+        return total
+    }
 
 
     override fun findIncome() : List<FinanceModel> {

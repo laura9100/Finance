@@ -19,7 +19,7 @@ import org.jetbrains.anko.toast
 class FinanceFragment : Fragment() {
 
     lateinit var app: FinanceApp
-    var totalIncome = 0
+    var totalFinance = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,10 +37,13 @@ class FinanceFragment : Fragment() {
 
         root.amountPicker.minValue = 1
         root.amountPicker.maxValue = 1000
-
+        root.totalIncomeSoFar?.setText("€"+app.financesStore.findTotalIncome())
+        root.totalSpendingSoFar?.setText("€"+ app.financesStore.findTotalSpending())
+        root.totalSavedSoFar?.setText("€"+app.financesStore.totalSaved())
         root.amountPicker.setOnValueChangedListener { _, _, newVal ->
 
             root.financeAmount.setText("$newVal")
+
         }
         setButtonListener(root)
         return root;
@@ -60,8 +63,7 @@ class FinanceFragment : Fragment() {
                 layout.financeAmount.text.toString().toInt() else layout.amountPicker.value
 
                 val financemethod = if(layout.financeMethod.checkedRadioButtonId == R.id.Spending) "Spending" else "Income"
-                totalIncome += amount
-                layout.totalIncomeSoFar.text = "$$totalIncome"
+                totalFinance += amount
 
             val financename = financeName.text.toString()
             app.financesStore.create(FinanceModel(financemethod = financemethod,amount = amount, financename = financename))
