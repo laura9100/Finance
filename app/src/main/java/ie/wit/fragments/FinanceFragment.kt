@@ -6,10 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 
 import ie.wit.R
 import ie.wit.main.FinanceApp
 import ie.wit.models.FinanceModel
+import ie.wit.utils.createLoader
 import kotlinx.android.synthetic.main.card_finance.*
 import kotlinx.android.synthetic.main.fragment_finance.*
 import kotlinx.android.synthetic.main.fragment_finance.view.*
@@ -20,7 +22,7 @@ class FinanceFragment : Fragment() {
 
     lateinit var app: FinanceApp
     var totalFinance = 0
-
+    lateinit var loader : AlertDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         app = activity?.application as FinanceApp
@@ -32,6 +34,7 @@ class FinanceFragment : Fragment() {
     ): View? {
 
         val root = inflater.inflate(R.layout.fragment_finance, container, false)
+        loader = createLoader(activity!!)
         activity?.title = getString(R.string.action_finance)
 
 

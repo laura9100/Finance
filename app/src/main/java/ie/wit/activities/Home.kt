@@ -14,19 +14,24 @@ import ie.wit.R
 import ie.wit.fragments.FinanceFragment
 import ie.wit.fragments.IncomeFragment
 import ie.wit.fragments.SpendingFragment
+import ie.wit.main.FinanceApp
 import kotlinx.android.synthetic.main.app_bar_home.*
 import kotlinx.android.synthetic.main.home.*
+import kotlinx.android.synthetic.main.nav_header_home.view.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 class Home : AppCompatActivity(),
     NavigationView.OnNavigationItemSelectedListener {
 
     lateinit var ft: FragmentTransaction
+    lateinit var app: FinanceApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.home)
         setSupportActionBar(toolbar)
+        app = application as FinanceApp
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Welcome to our app",
@@ -43,6 +48,8 @@ class Home : AppCompatActivity(),
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
+        navView.getHeaderView(0).nav_header_email.text = app.auth.currentUser?.email
+
         ft = supportFragmentManager.beginTransaction()
 
         val fragment = FinanceFragment.newInstance()
@@ -56,6 +63,8 @@ class Home : AppCompatActivity(),
             R.id.nav_finance -> navigateTo(FinanceFragment.newInstance())
             R.id.nav_income -> navigateTo(IncomeFragment.newInstance())
             R.id.nav_spending -> navigateTo(SpendingFragment.newInstance())
+            R.id.nav_sign_out -> signOut()
+
 
             else -> toast("You Selected Something Else")
         }
@@ -90,5 +99,11 @@ class Home : AppCompatActivity(),
             .replace(R.id.homeFrame, fragment)
             .addToBackStack(null)
             .commit()
+    }
+    private fun signOut()
+    {
+        app.auth.signOut()
+        startActivity<Login>()
+        finish()
     }
 }
