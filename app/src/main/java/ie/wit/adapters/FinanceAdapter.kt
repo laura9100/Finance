@@ -9,7 +9,11 @@ import ie.wit.models.FinanceModel
 
 import kotlinx.android.synthetic.main.card_finance.view.*
 
-class FinanceAdapter constructor(private var finances: List<FinanceModel>)
+interface FinanceListener {
+    fun onFinanceClick(finance: FinanceModel)
+}
+class FinanceAdapter constructor(private var finances: List<FinanceModel>,
+                                 private val listener: FinanceListener)
     : RecyclerView.Adapter<FinanceAdapter.MainHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
@@ -24,17 +28,18 @@ class FinanceAdapter constructor(private var finances: List<FinanceModel>)
 
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
         val finance = finances[holder.adapterPosition]
-        holder.bind(finance)
+        holder.bind(finance,listener)
     }
 
     override fun getItemCount(): Int = finances.size
 
     class MainHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(finance: FinanceModel) {
+        fun bind(finance: FinanceModel, listener: FinanceListener) {
             itemView.amount.text = finance.amount.toString()
             itemView.financemethod.text = finance.financemethod
             itemView.financename.text = finance.financename
+            itemView.setOnClickListener { listener.onFinanceClick(finance) }
 
         }
     }

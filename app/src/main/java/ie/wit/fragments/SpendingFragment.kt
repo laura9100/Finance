@@ -30,7 +30,7 @@ class SpendingFragment : Fragment() {
         var root = inflater.inflate(R.layout.fragment_spending, container, false)
 
         root.recyclerView.setLayoutManager(LinearLayoutManager(activity))
-        root.recyclerView.adapter = FinanceAdapter(app.financesStore.findSpending())
+       // root.recyclerView.adapter = FinanceAdapter(app.financesStore.findSpending())
 
         return root
     }
