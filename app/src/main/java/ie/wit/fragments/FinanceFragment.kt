@@ -104,28 +104,28 @@ class FinanceFragment : Fragment(), AnkoLogger {
         info(childUpdates)
         hideLoader(loader)
     }
-//    fun getTotalFinance(userId: String?) {
-//
-//        eventListener = object : ValueEventListener {
-//            override fun onCancelled(error: DatabaseError) {
-//                info("Firebase Donation error : ${error.message}")
-//            }
-//
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                totalFinance = 0
-//                val children = snapshot!!.children
-//                children.forEach {
-//                    val finance = it.getValue<FinanceModel>(FinanceModel::class.java!!)
-//                    totalFinance += finance!!.amount
-//                }
-//
-//                totalIncomeSoFar.text = format("$ $totalFinance")
-//            }
-//        }
-//
-//        app.database.child("user-finances").child(userId!!)
-//            .addValueEventListener(eventListener)
-//    }
+    fun getTotalFinance(userId: String?) {
+
+        eventListener = object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                info("Firebase Donation error : ${error.message}")
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                totalFinance = 0
+                val children = snapshot!!.children
+                children.forEach {
+                    val finance = it.getValue<FinanceModel>(FinanceModel::class.java!!)
+                    totalFinance += finance!!.amount
+                }
+
+                totalIncomeSoFar.text = format("$ $totalFinance")
+            }
+        }
+
+        app.database.child("user-finances").child(userId!!)
+            .addValueEventListener(eventListener)
+    }
 
 
 }
