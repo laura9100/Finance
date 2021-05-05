@@ -46,7 +46,6 @@ class FinanceFragment : Fragment(), AnkoLogger {
         loader = createLoader(activity!!)
         activity?.title = getString(R.string.action_finance)
 
-
         root.amountPicker.minValue = 1
         root.amountPicker.maxValue = 1000
 //        root.totalIncomeSoFar?.setText("€"+app.financesStore.findTotalIncome())
@@ -83,8 +82,14 @@ class FinanceFragment : Fragment(), AnkoLogger {
                 email = app.auth.currentUser?.email))
             }
         }
+
+    override fun onResume() {
+        super.onResume()
+       // getTotalFinance(app.auth.currentUser?.uid)
+    }
+
+
     fun writeNewFinance(finance: FinanceModel) {
-        // Create new donation at /donations & /donations/$uid
         showLoader(loader, "Adding Finance to Firebase")
         info("Firebase DB Reference : $app.database")
         val uid = app.auth.currentUser!!.uid
@@ -104,28 +109,28 @@ class FinanceFragment : Fragment(), AnkoLogger {
         info(childUpdates)
         hideLoader(loader)
     }
-    fun getTotalFinance(userId: String?) {
-
-        eventListener = object : ValueEventListener {
-            override fun onCancelled(error: DatabaseError) {
-                info("Firebase Donation error : ${error.message}")
-            }
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                totalFinance = 0
-                val children = snapshot!!.children
-                children.forEach {
-                    val finance = it.getValue<FinanceModel>(FinanceModel::class.java!!)
-                    totalFinance += finance!!.amount
-                }
-
-                totalIncomeSoFar.text = format("$ $totalFinance")
-            }
-        }
-
-        app.database.child("user-finances").child(userId!!)
-            .addValueEventListener(eventListener)
-    }
+//    fun getTotalFinance(userId: String?) {
+//
+//        eventListener = object : ValueEventListener {
+//            override fun onCancelled(error: DatabaseError) {
+//                info("Firebase Donation error : ${error.message}")
+//            }
+//
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                totalFinance = 0
+//                val children = snapshot!!.children
+//                children.forEach {
+//                    val finance = it.getValue<FinanceModel>(FinanceModel::class.java!!)
+//                    totalFinance += finance!!.amount
+//                }
+//
+//                totalIncomeSoFar.text = format("$ $totalFinance")
+//            }
+//        }
+//
+//        app.database.child("user-finances").child(userId!!)
+//            .addValueEventListener(eventListener)
+//    }
 
 
 }
