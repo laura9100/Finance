@@ -7,9 +7,9 @@ import kotlinx.android.parcel.Parcelize
 @IgnoreExtraProperties
 @Parcelize
 data class FinanceModel(var uid: String? ="",
-                        val financemethod: String = "N/A",
-                        val amount: Int = 0,
-                        val financename: String = "N/A",
+                        var financemethod: String = "N/A",
+                        var amount: Int = 0,
+                        var financename: String = "N/A",
                         var email: String? = "joe@bloggs.com") : Parcelable
 {
 @Exclude

@@ -60,6 +60,9 @@
     <string name="firebase_user_management">Firebase User Management</string>
     <string name="emailpassword_status_fmt">Email User: %1$s (verified: %2$b)</string>
     <string name="emailpassword_title_text">Please Login Below</string>
+    <string name="action_edit">Finance</string>
+    <string name="action_update">Update</string>
+    <string name="message_edit">Please Update your Details Below</string>
 
 
 </resources>

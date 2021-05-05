@@ -20,10 +20,7 @@ import ie.wit.adapters.FinanceAdapter
 import ie.wit.adapters.FinanceListener
 import ie.wit.main.FinanceApp
 import ie.wit.models.FinanceModel
-import ie.wit.utils.SwipeToDeleteCallback
-import ie.wit.utils.createLoader
-import ie.wit.utils.hideLoader
-import ie.wit.utils.showLoader
+import ie.wit.utils.*
 import kotlinx.android.synthetic.main.fragment_income.view.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -61,6 +58,16 @@ class IncomeFragment : Fragment(), AnkoLogger, FinanceListener {
             }
             val itemTouchDeleteHelper = ItemTouchHelper(swipeDeleteHandler)
             itemTouchDeleteHelper.attachToRecyclerView(root.recyclerView)
+
+            val swipeEditHandler = object : SwipeToEditCallback(activity!!) {
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    onFinanceClick(viewHolder.itemView.tag as FinanceModel)
+                }
+            }
+            val itemTouchEditHelper = ItemTouchHelper(swipeEditHandler)
+            itemTouchEditHelper.attachToRecyclerView(root.recyclerView)
+
+
 
             return root
 
@@ -149,8 +156,12 @@ class IncomeFragment : Fragment(), AnkoLogger, FinanceListener {
                 })
     }
 
+
     override fun onFinanceClick(finance: FinanceModel) {
-        TODO("Not yet implemented")
+        activity!!.supportFragmentManager.beginTransaction()
+                .replace(R.id.homeFrame, EditFragment.newInstance(finance))
+                .addToBackStack(null)
+                .commit()
     }
 }
 
