@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -29,7 +30,7 @@ import java.lang.String.format
 class FinanceFragment : Fragment(), AnkoLogger {
 
     lateinit var app: FinanceApp
-    var totalIncome = 0
+    var totalFinance = 0
     var totalSpending = 0
     var totalSaved = 0
     lateinit var loader: AlertDialog
@@ -73,7 +74,7 @@ class FinanceFragment : Fragment(), AnkoLogger {
                 layout.financeAmount.text.toString().toInt() else layout.amountPicker.value
 
             val financemethod = if (layout.financeMethod.checkedRadioButtonId == R.id.Spending) "Spending" else "Income"
-            totalIncome += amount
+            totalFinance += amount
 
             val financename = financeName.text.toString()
 //            app.financesStore.create(FinanceModel(financemethod = financemethod,amount = amount, financename = financename))
@@ -88,6 +89,7 @@ class FinanceFragment : Fragment(), AnkoLogger {
         getTotalSpending(app.auth.currentUser?.uid)
         getTotalSaved(app.auth.currentUser?.uid)
     }
+
 
 
     fun writeNewFinance(finance: FinanceModel) {
@@ -119,17 +121,18 @@ class FinanceFragment : Fragment(), AnkoLogger {
             }
 
             override fun onDataChange(snapshot: DataSnapshot) {
-                totalIncome = 0
+                var totalIncome = 0
+
                 val children = snapshot!!.children
                 children.forEach {
 
                     val income = it.getValue<FinanceModel>(FinanceModel::class.java!!)
-                    if (income?.financemethod.equals("Income")) {
+                    if (income!!.financemethod.equals("Income")) {
                         totalIncome += income!!.amount
                     }
                 }
 
-                totalIncomeSoFar.text = format("$ $totalIncome")
+                totalIncomeSoFar.text = format("€ $totalIncome")
             }
         }
 
@@ -145,7 +148,8 @@ class FinanceFragment : Fragment(), AnkoLogger {
             }
 
             override fun onDataChange(snapshot: DataSnapshot) {
-                totalSpending = 0
+                var totalSpending = 0
+
                 val children = snapshot!!.children
                 children.forEach {
 
