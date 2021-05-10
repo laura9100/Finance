@@ -29,17 +29,19 @@ import java.lang.String.format
 class FinanceFragment : Fragment(), AnkoLogger {
 
     lateinit var app: FinanceApp
-    var totalFinance = 0
-    lateinit var loader : AlertDialog
-    lateinit var eventListener : ValueEventListener
+    var totalIncome = 0
+    var totalSpending = 0
+    var totalSaved = 0
+    lateinit var loader: AlertDialog
+    lateinit var eventListener: ValueEventListener
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         app = activity?.application as FinanceApp
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
 
         val root = inflater.inflate(R.layout.fragment_finance, container, false)
@@ -48,9 +50,6 @@ class FinanceFragment : Fragment(), AnkoLogger {
 
         root.amountPicker.minValue = 1
         root.amountPicker.maxValue = 1000
-//        root.totalIncomeSoFar?.setText("€"+app.financesStore.findTotalIncome())
-  //      root.totalSpendingSoFar?.setText("€"+ app.financesStore.findTotalSpending())
-    //    root.totalSavedSoFar?.setText("€"+app.financesStore.totalSaved())
         root.amountPicker.setOnValueChangedListener { _, _, newVal ->
 
             root.financeAmount.setText("$newVal")
@@ -63,29 +62,31 @@ class FinanceFragment : Fragment(), AnkoLogger {
     companion object {
         @JvmStatic
         fun newInstance() =
-            FinanceFragment().apply {
-                arguments = Bundle().apply {}
-            }
+                FinanceFragment().apply {
+                    arguments = Bundle().apply {}
+                }
     }
 
-    fun setButtonListener( layout: View) {
+    fun setButtonListener(layout: View) {
         layout.addButton.setOnClickListener {
             val amount = if (layout.financeAmount.text.isNotEmpty())
                 layout.financeAmount.text.toString().toInt() else layout.amountPicker.value
 
-                val financemethod = if(layout.financeMethod.checkedRadioButtonId == R.id.Spending) "Spending" else "Income"
-                totalFinance += amount
+            val financemethod = if (layout.financeMethod.checkedRadioButtonId == R.id.Spending) "Spending" else "Income"
+            totalIncome += amount
 
             val financename = financeName.text.toString()
 //            app.financesStore.create(FinanceModel(financemethod = financemethod,amount = amount, financename = financename))
-            writeNewFinance(FinanceModel(financemethod = financemethod,amount = amount, financename = financename,
-                email = app.auth.currentUser?.email))
-            }
+            writeNewFinance(FinanceModel(financemethod = financemethod, amount = amount, financename = financename,
+                    email = app.auth.currentUser?.email))
         }
+    }
 
     override fun onResume() {
         super.onResume()
-       // getTotalFinance(app.auth.currentUser?.uid)
+        getTotalIncome(app.auth.currentUser?.uid)
+        getTotalSpending(app.auth.currentUser?.uid)
+        getTotalSaved(app.auth.currentUser?.uid)
     }
 
 
@@ -109,28 +110,91 @@ class FinanceFragment : Fragment(), AnkoLogger {
         info(childUpdates)
         hideLoader(loader)
     }
-//    fun getTotalFinance(userId: String?) {
-//
-//        eventListener = object : ValueEventListener {
-//            override fun onCancelled(error: DatabaseError) {
-//                info("Firebase Donation error : ${error.message}")
-//            }
-//
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                totalFinance = 0
-//                val children = snapshot!!.children
-//                children.forEach {
-//                    val finance = it.getValue<FinanceModel>(FinanceModel::class.java!!)
-//                    totalFinance += finance!!.amount
-//                }
-//
-//                totalIncomeSoFar.text = format("$ $totalFinance")
-//            }
-//        }
-//
-//        app.database.child("user-finances").child(userId!!)
-//            .addValueEventListener(eventListener)
-//    }
+
+    fun getTotalIncome(userId: String?) {
+
+        eventListener = object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                info("Firebase Donation error : ${error.message}")
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                totalIncome = 0
+                val children = snapshot!!.children
+                children.forEach {
+
+                    val income = it.getValue<FinanceModel>(FinanceModel::class.java!!)
+                    if (income?.financemethod.equals("Income")) {
+                        totalIncome += income!!.amount
+                    }
+                }
+
+                totalIncomeSoFar.text = format("$ $totalIncome")
+            }
+        }
+
+        app.database.child("user-finances").child(userId!!)
+                .addValueEventListener(eventListener)
+    }
+
+    fun getTotalSpending(userId: String?) {
+
+        eventListener = object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                info("Firebase Donation error : ${error.message}")
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                totalSpending = 0
+                val children = snapshot!!.children
+                children.forEach {
+
+                    val spending = it.getValue<FinanceModel>(FinanceModel::class.java!!)
+                    if (spending?.financemethod.equals("Spending")) {
+                        totalSpending += spending!!.amount
+                    }
+                }
+
+                totalSpendingSoFar.text = format("€ $totalSpending")
+            }
+        }
+
+        app.database.child("user-finances").child(userId!!)
+                .addValueEventListener(eventListener)
+    }
+
+    fun getTotalSaved(userId: String?) {
+
+        eventListener = object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                info("Firebase Donation error : ${error.message}")
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var totalIncome = 0
+                var totalSpending = 0
+                var totalSaved = 0
+                val children = snapshot!!.children
+                children.forEach {
+
+                    val spending = it.getValue<FinanceModel>(FinanceModel::class.java!!)
+                    if (spending?.financemethod.equals("Spending")) {
+                        totalSpending += spending!!.amount
+                    }
+                    val income = it.getValue<FinanceModel>(FinanceModel::class.java!!)
+                    if (income?.financemethod.equals("Income")) {
+                        totalIncome += income!!.amount
+                    }
+                    totalSaved = totalIncome - totalSpending
+                }
+
+                totalSavedSoFar.text = format("€ $totalSaved")
+            }
+        }
+
+        app.database.child("user-finances").child(userId!!)
+                .addValueEventListener(eventListener)
+    }
 
 
 }

@@ -21,6 +21,8 @@ import ie.wit.adapters.FinanceListener
 import ie.wit.main.FinanceApp
 import ie.wit.models.FinanceModel
 import ie.wit.utils.*
+import kotlinx.android.synthetic.main.card_finance.*
+import kotlinx.android.synthetic.main.fragment_finance.*
 import kotlinx.android.synthetic.main.fragment_income.view.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -84,7 +86,7 @@ class IncomeFragment : Fragment(), AnkoLogger, FinanceListener {
         root.swiperefresh.setOnRefreshListener(object : SwipeRefreshLayout.OnRefreshListener {
             override fun onRefresh() {
                 root.swiperefresh.isRefreshing = true
-                getAllFinance(app.auth.currentUser!!.uid)
+                getAllIncome(app.auth.currentUser!!.uid)
 
             }
         })
@@ -95,39 +97,43 @@ class IncomeFragment : Fragment(), AnkoLogger, FinanceListener {
     }
     override fun onResume() {
         super.onResume()
-        getAllFinance(app.auth.currentUser!!.uid)
+        getAllIncome(app.auth.currentUser!!.uid)
     }
 
 
-    fun getAllFinance(userId: String?) {
+    fun getAllIncome(userId: String?) {
         loader = createLoader(activity!!)
         showLoader(loader, "Downloading Finances from Firebase")
         val financeList = ArrayList<FinanceModel>()
-        app.database.child("user-finances").child(userId!!)
-            .addValueEventListener(object : ValueEventListener {
-                override fun onCancelled(error: DatabaseError) {
-                    info("Firebase Finance error : ${error.message}")
-                }
 
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    hideLoader(loader)
-                    val children = snapshot.children
-                    children.forEach {
-                        val finance = it.
-                        getValue<FinanceModel>(FinanceModel::class.java)
+            app.database.child("user-finances").child(userId!!)
+                    .addValueEventListener(object : ValueEventListener {
+                        override fun onCancelled(error: DatabaseError) {
+                            info("Firebase Finance error : ${error.message}")
+                        }
 
-                        financeList.add(finance!!)
-                        root.recyclerView.adapter =
-                            FinanceAdapter(financeList, this@IncomeFragment)
-                        root.recyclerView.adapter?.notifyDataSetChanged()
-                        checkSwipeRefresh()
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            hideLoader(loader)
+                            val children = snapshot.children
+                            children.forEach {
+                                val finance = it.getValue<FinanceModel>(FinanceModel::class.java)
+                                if(finance?.financemethod.equals("Income")) {
+                                    financeList.add(finance!!)
+                                    root.recyclerView.adapter =
+                                            FinanceAdapter(financeList, this@IncomeFragment)
+                                    root.recyclerView.adapter?.notifyDataSetChanged()
+                                    checkSwipeRefresh()
 
 
-                        app.database.child("user-finances").child(userId)
-                            .removeEventListener(this)
-                    }
-                }
-            })
+                                    app.database.child("user-finances").child(userId)
+                                            .removeEventListener(this)
+                                }
+
+
+                            }
+                        }
+                    })
+
     }
     fun deleteUserFinance(userId: String, uid: String?) {
         app.database.child("user-finances").child(userId).child(uid!!)

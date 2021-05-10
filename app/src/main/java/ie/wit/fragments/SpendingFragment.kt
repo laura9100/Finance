@@ -85,7 +85,7 @@ class SpendingFragment : Fragment(), AnkoLogger, FinanceListener {
         root.swiperefresh.setOnRefreshListener(object : SwipeRefreshLayout.OnRefreshListener {
             override fun onRefresh() {
                 root.swiperefresh.isRefreshing = true
-                getAllFinance(app.auth.currentUser!!.uid)
+                getAllSpending(app.auth.currentUser!!.uid)
 
             }
         })
@@ -96,11 +96,11 @@ class SpendingFragment : Fragment(), AnkoLogger, FinanceListener {
     }
     override fun onResume() {
         super.onResume()
-        getAllFinance(app.auth.currentUser!!.uid)
+        getAllSpending(app.auth.currentUser!!.uid)
     }
 
 
-    fun getAllFinance(userId: String?) {
+    fun getAllSpending(userId: String?) {
         loader = createLoader(activity!!)
         showLoader(loader, "Downloading Finances from Firebase")
         val financeList = ArrayList<FinanceModel>()
@@ -114,18 +114,18 @@ class SpendingFragment : Fragment(), AnkoLogger, FinanceListener {
                         hideLoader(loader)
                         val children = snapshot.children
                         children.forEach {
-                            val finance = it.
-                            getValue<FinanceModel>(FinanceModel::class.java)
+                            val finance = it.getValue<FinanceModel>(FinanceModel::class.java)
+                            if (finance?.financemethod.equals("Spending")) {
+                                financeList.add(finance!!)
+                                root.recyclerView.adapter =
+                                        FinanceAdapter(financeList, this@SpendingFragment)
+                                root.recyclerView.adapter?.notifyDataSetChanged()
+                                checkSwipeRefresh()
 
-                            financeList.add(finance!!)
-                            root.recyclerView.adapter =
-                                    FinanceAdapter(financeList, this@SpendingFragment)
-                            root.recyclerView.adapter?.notifyDataSetChanged()
-                            checkSwipeRefresh()
 
-
-                            app.database.child("user-finances").child(userId)
-                                    .removeEventListener(this)
+                                app.database.child("user-finances").child(userId)
+                                        .removeEventListener(this)
+                            }
                         }
                     }
                 })
