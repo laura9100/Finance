@@ -15,6 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import ie.wit.R
+import ie.wit.fragments.FavouritesFragment
 import ie.wit.fragments.FinanceFragment
 import ie.wit.fragments.IncomeFragment
 import ie.wit.fragments.SpendingFragment
@@ -90,6 +91,7 @@ class Home : AppCompatActivity(),
             R.id.nav_finance -> navigateTo(FinanceFragment.newInstance())
             R.id.nav_income -> navigateTo(IncomeFragment.newInstance())
             R.id.nav_spending -> navigateTo(SpendingFragment.newInstance())
+            R.id.nav_favourites -> navigateTo(FavouritesFragment.newInstance())
             R.id.nav_sign_out -> signOut()
 
 
@@ -110,6 +112,8 @@ class Home : AppCompatActivity(),
             R.id.action_finance -> toast("You Selected Finance")
             R.id.action_income -> toast("You Selected Income")
             R.id.action_spending -> toast("You Selected Spending")
+            R.id.action_favourites -> toast("You Selected Favourites")
+
         }
         return super.onOptionsItemSelected(item)
     }

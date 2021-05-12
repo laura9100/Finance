@@ -3,6 +3,7 @@
     <string name="action_finance">Finance</string>
     <string name="action_income">Income</string>
     <string name="action_spending">Spending</string>
+    <string name="action_favourites">Favourites</string>
     <string name="financeTitle">Your Finances</string>
     <string name="financeSubtitle">Please enter your income and spendings</string>
     <string name="title">Name</string>
@@ -35,6 +36,7 @@
     <string name="menu_finance">Finance</string>
     <string name="menu_income">Income</string>
     <string name="menu_spending">Spending</string>
+    <string name="menu_favourites">Favourites</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="messageLoading">Please wait while we Connect to the Server...</string>
@@ -62,6 +64,7 @@
     <string name="emailpassword_title_text">Please Login Below</string>
     <string name="action_edit">Finance</string>
     <string name="action_update">Update</string>
+
     <string name="message_edit">Please Update your Details Below</string>
     <string name="select_profile_image">Select Profile Picture</string>
 

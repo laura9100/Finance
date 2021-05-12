@@ -33,6 +33,7 @@ class FinanceFragment : Fragment(), AnkoLogger {
     var totalFinance = 0
     lateinit var loader: AlertDialog
     lateinit var eventListener: ValueEventListener
+    var favourite = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         app = activity?.application as FinanceApp
@@ -55,6 +56,7 @@ class FinanceFragment : Fragment(), AnkoLogger {
 
         }
         setButtonListener(root)
+        setFavouriteListener(root)
         return root;
     }
 
@@ -76,7 +78,7 @@ class FinanceFragment : Fragment(), AnkoLogger {
 
             val financename = financeName.text.toString()
 //            app.financesStore.create(FinanceModel(financemethod = financemethod,amount = amount, financename = financename))
-            writeNewFinance(FinanceModel(financemethod = financemethod, amount = amount, financename = financename,
+            writeNewFinance(FinanceModel(financemethod = financemethod, amount = amount, financename = financename, isfavourite = favourite,
                     email = app.auth.currentUser?.email))
         }
     }
@@ -196,6 +198,21 @@ class FinanceFragment : Fragment(), AnkoLogger {
 
         app.database.child("user-finances").child(userId!!)
                 .addValueEventListener(eventListener)
+    }
+
+    fun setFavouriteListener (layout: View) {
+        layout.imagefavourite.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(view: View?) {
+                if (!favourite) {
+                    layout.imagefavourite.setImageResource(android.R.drawable.star_big_on)
+                    favourite = true
+                }
+                else {
+                    layout.imagefavourite.setImageResource(android.R.drawable.star_big_off)
+                    favourite = false
+                }
+            }
+        })
     }
 
 

@@ -50,6 +50,7 @@ class FinanceAdapter constructor(private var finances: ArrayList<FinanceModel>,
             itemView.financemethod.text = finance.financemethod
             itemView.financename.text = finance.financename
             itemView.setOnClickListener { listener.onFinanceClick(finance) }
+            if(finance.isfavourite) itemView.imagefavourite.setImageResource(android.R.drawable.star_big_on)
 
         }
 
