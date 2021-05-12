@@ -31,8 +31,6 @@ class FinanceFragment : Fragment(), AnkoLogger {
 
     lateinit var app: FinanceApp
     var totalFinance = 0
-    var totalSpending = 0
-    var totalSaved = 0
     lateinit var loader: AlertDialog
     lateinit var eventListener: ValueEventListener
     override fun onCreate(savedInstanceState: Bundle?) {

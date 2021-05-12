@@ -3,9 +3,12 @@ package ie.wit.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import ie.wit.R
 import ie.wit.models.FinanceModel
+import jp.wasabeef.picasso.transformations.CropCircleTransformation
 
 import kotlinx.android.synthetic.main.card_finance.view.*
 
@@ -49,5 +52,6 @@ class FinanceAdapter constructor(private var finances: ArrayList<FinanceModel>,
             itemView.setOnClickListener { listener.onFinanceClick(finance) }
 
         }
+
     }
 }

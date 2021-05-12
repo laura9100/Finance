@@ -63,6 +63,7 @@
     <string name="action_edit">Finance</string>
     <string name="action_update">Update</string>
     <string name="message_edit">Please Update your Details Below</string>
+    <string name="select_profile_image">Select Profile Picture</string>
 
 
 </resources>
