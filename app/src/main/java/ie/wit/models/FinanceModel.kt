@@ -11,6 +11,7 @@ data class FinanceModel(var uid: String? ="",
                         var amount: Int = 0,
                         var financename: String = "N/A",
                         var profilepic: String = "",
+                        var isfavourite: Boolean = false,
                         var email: String? = "joe@bloggs.com") : Parcelable
 {
 @Exclude
@@ -21,6 +22,7 @@ fun toMap(): Map<String, Any?> {
         "amount" to amount,
         "financename" to financename,
         "profilepic" to profilepic,
+        "isfavourite" to isfavourite,
         "email" to email
     )
 }
