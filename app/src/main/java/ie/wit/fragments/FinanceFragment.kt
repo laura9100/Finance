@@ -127,12 +127,13 @@ class FinanceFragment : Fragment(), AnkoLogger {
                 children.forEach {
 
                     val income = it.getValue<FinanceModel>(FinanceModel::class.java!!)
-                    if (income!!.financemethod.equals("Income")) {
+                    if (income?.financemethod.equals("Income")) {
                         totalIncome += income!!.amount
-                    }
-                }
 
-                totalIncomeSoFar.text = format("€ $totalIncome")
+                    }
+
+                }
+                totalIncomeSoFar?.text = format("€ $totalIncome")
             }
         }
 
@@ -154,12 +155,16 @@ class FinanceFragment : Fragment(), AnkoLogger {
                 children.forEach {
 
                     val spending = it.getValue<FinanceModel>(FinanceModel::class.java!!)
-                    if (spending?.financemethod.equals("Spending")) {
-                        totalSpending += spending!!.amount
-                    }
-                }
 
+                        if (spending?.financemethod.equals("Spending")) {
+                            totalSpending += spending!!.amount
+
+                        }
+
+
+                }
                 totalSpendingSoFar.text = format("€ $totalSpending")
+
             }
         }
 

@@ -8,13 +8,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.storage.StorageReference
 
-import ie.wit.models.FinanceModel
-import ie.wit.models.FinanceStore
-
 
 class FinanceApp : Application() {
 
-//    lateinit var financesStore: FinanceStore
     lateinit var storage: StorageReference
     lateinit var googleSignInClient: GoogleSignInClient
     lateinit var auth: FirebaseAuth
@@ -24,8 +20,6 @@ class FinanceApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-      //  financesStore = FinanceMemStore()
-      // financesStore = FinanceJSONStore(applicationContext)
         Log.v("Finance","Finance App started")
     }
 
