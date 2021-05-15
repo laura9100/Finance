@@ -19,4 +19,9 @@
         android:orderInCategory="100"
         android:title="@string/action_spending"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_favourites"
+        android:orderInCategory="100"
+        android:title="@string/action_favourites"
+        app:showAsAction="never" />
 </menu>
