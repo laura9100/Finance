@@ -85,9 +85,9 @@ class FinanceFragment : Fragment(), AnkoLogger {
 
     override fun onResume() {
         super.onResume()
-        getTotalIncome(app.auth.currentUser?.uid)
-        getTotalSpending(app.auth.currentUser?.uid)
-        getTotalSaved(app.auth.currentUser?.uid)
+//        getTotalIncome(app.auth.currentUser?.uid)
+//        getTotalSpending(app.auth.currentUser?.uid)
+//        getTotalSaved(app.auth.currentUser?.uid)
     }
 
 
@@ -113,97 +113,97 @@ class FinanceFragment : Fragment(), AnkoLogger {
         hideLoader(loader)
     }
 
-    fun getTotalIncome(userId: String?) {
-
-        eventListener = object : ValueEventListener {
-            override fun onCancelled(error: DatabaseError) {
-                info("Firebase Donation error : ${error.message}")
-            }
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                var totalIncome = 0
-
-                val children = snapshot!!.children
-                children.forEach {
-
-                    val income = it.getValue<FinanceModel>(FinanceModel::class.java!!)
-                    if (income?.financemethod.equals("Income")) {
-                        totalIncome += income!!.amount
-
-                    }
-
-                }
-                totalIncomeSoFar?.text = format("€ $totalIncome")
-            }
-        }
-
-        app.database.child("user-finances").child(userId!!)
-                .addValueEventListener(eventListener)
-    }
-
-    fun getTotalSpending(userId: String?) {
-
-        eventListener = object : ValueEventListener {
-            override fun onCancelled(error: DatabaseError) {
-                info("Firebase Donation error : ${error.message}")
-            }
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                var totalSpending = 0
-
-                val children = snapshot!!.children
-                children.forEach {
-
-                    val spending = it.getValue<FinanceModel>(FinanceModel::class.java!!)
-
-                        if (spending?.financemethod.equals("Spending")) {
-                            totalSpending += spending!!.amount
-
-                        }
-
-
-                }
-                totalSpendingSoFar.text = format("€ $totalSpending")
-
-            }
-        }
-
-        app.database.child("user-finances").child(userId!!)
-                .addValueEventListener(eventListener)
-    }
-
-    fun getTotalSaved(userId: String?) {
-
-        eventListener = object : ValueEventListener {
-            override fun onCancelled(error: DatabaseError) {
-                info("Firebase Donation error : ${error.message}")
-            }
-
-            override fun onDataChange(snapshot: DataSnapshot) {
-                var totalIncome = 0
-                var totalSpending = 0
-                var totalSaved = 0
-                val children = snapshot!!.children
-                children.forEach {
-
-                    val spending = it.getValue<FinanceModel>(FinanceModel::class.java!!)
-                    if (spending?.financemethod.equals("Spending")) {
-                        totalSpending += spending!!.amount
-                    }
-                    val income = it.getValue<FinanceModel>(FinanceModel::class.java!!)
-                    if (income?.financemethod.equals("Income")) {
-                        totalIncome += income!!.amount
-                    }
-                    totalSaved = totalIncome - totalSpending
-                }
-
-                totalSavedSoFar.text = format("€ $totalSaved")
-            }
-        }
-
-        app.database.child("user-finances").child(userId!!)
-                .addValueEventListener(eventListener)
-    }
+//    fun getTotalIncome(userId: String?) {
+//
+//        eventListener = object : ValueEventListener {
+//            override fun onCancelled(error: DatabaseError) {
+//                info("Firebase Donation error : ${error.message}")
+//            }
+//
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                var totalIncome = 0
+//
+//                val children = snapshot!!.children
+//                children.forEach {
+//
+//                    val income = it.getValue<FinanceModel>(FinanceModel::class.java!!)
+//                    if (income?.financemethod.equals("Income")) {
+//                        totalIncome += income!!.amount
+//
+//                    }
+//
+//                }
+//                totalIncomeSoFar?.text = format("€ $totalIncome")
+//            }
+//        }
+//
+//        app.database.child("user-finances").child(userId!!)
+//                .addValueEventListener(eventListener)
+//    }
+//
+//    fun getTotalSpending(userId: String?) {
+//
+//        eventListener = object : ValueEventListener {
+//            override fun onCancelled(error: DatabaseError) {
+//                info("Firebase Donation error : ${error.message}")
+//            }
+//
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                var totalSpending = 0
+//
+//                val children = snapshot!!.children
+//                children.forEach {
+//
+//                    val spending = it.getValue<FinanceModel>(FinanceModel::class.java!!)
+//
+//                        if (spending?.financemethod.equals("Spending")) {
+//                            totalSpending += spending!!.amount
+//
+//                        }
+//
+//
+//                }
+//                totalSpendingSoFar.text = format("€ $totalSpending")
+//
+//            }
+//        }
+//
+//        app.database.child("user-finances").child(userId!!)
+//                .addValueEventListener(eventListener)
+//    }
+//
+//    fun getTotalSaved(userId: String?) {
+//
+//        eventListener = object : ValueEventListener {
+//            override fun onCancelled(error: DatabaseError) {
+//                info("Firebase Donation error : ${error.message}")
+//            }
+//
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                var totalIncome = 0
+//                var totalSpending = 0
+//                var totalSaved = 0
+//                val children = snapshot!!.children
+//                children.forEach {
+//
+//                    val spending = it.getValue<FinanceModel>(FinanceModel::class.java!!)
+//                    if (spending?.financemethod.equals("Spending")) {
+//                        totalSpending += spending!!.amount
+//                    }
+//                    val income = it.getValue<FinanceModel>(FinanceModel::class.java!!)
+//                    if (income?.financemethod.equals("Income")) {
+//                        totalIncome += income!!.amount
+//                    }
+//                    totalSaved = totalIncome - totalSpending
+//                }
+//
+//                totalSavedSoFar.text = format("€ $totalSaved")
+//            }
+//        }
+//
+//        app.database.child("user-finances").child(userId!!)
+//                .addValueEventListener(eventListener)
+//    }
 
     fun setFavouriteListener (layout: View) {
         layout.imagefavourite.setOnClickListener(object : View.OnClickListener {
